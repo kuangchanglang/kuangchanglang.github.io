@@ -1,9 +1,0 @@
----
-layout: post
-title:  "Day 2"
-date:   2015-06-12 09:23:39
-categories: jekyll update
----
-
-终于过了一天，突然发现自己是个傻逼。挖坑自己跳。
-度日如年，古人诚不欺我也。
