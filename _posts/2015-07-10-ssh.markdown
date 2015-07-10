@@ -10,16 +10,16 @@ SSH reverse tunnel works fine when extranet host needs to access intranet resrou
 HE can not access to HI directly even it knows pi's ip, it is just an intranet ip, kind of 192.168.... So we can create socket to exchange information, but it is not that elegant.  
 
 Here we get ssh to help. Execute this command on HI(where HI must has ssh privilege on HE):  
-''ssh -R port2:HI:port1 username@HE''   
+``ssh -R port2:HI:port1 username@HE``   
 
 OK! That's it. Everthing of localhost:port2 on HE will point to HI:port1. I don't ask why this time, it should be some kind of socket listening to port2 on HE and communicate with HI:port1.  
 
 Well, if HI is not our machine, but we do have a machine in the same LAN with HI, called HJ, just execute the same command on HJ(HJ must has ssh privilege on HE and can access to HI:port1):  
-''ssh -R port2:HI:port1 username@HE''   
+``ssh -R port2:HI:port1 username@HE``   
 
-However, this 'ssh' command will terminate when we logout shell. -n -N -T options will change stdin to /dev/null, then use nohup to keep it alive. Details of the options please check 'man ssh'.  
+However, this `ssh` command will terminate when we logout shell. -n -N -T options will change stdin to /dev/null, then use nohup to keep it alive. Details of the options please check `man ssh`.  
 
 Finally the command looks like:  
-''nohup ssh -n -N -T -R port2:HI:port1 username@HE''   
+``nohup ssh -n -N -T -R port2:HI:port1 username@HE``  
 
 May this help.
