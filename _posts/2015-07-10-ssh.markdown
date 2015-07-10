@@ -12,7 +12,7 @@ HE can not access to HI directly even it knows HI's ip, it is just an intranet i
 Here we get ssh to help. Execute this command on HI(where HI must has ssh privilege on HE):  
 ``ssh -R port2:HI:port1 username@HE``   
 
-OK! That's it. Everthing of localhost:port2 on HE will point to HI:port1. I can't ask why here, it should be some kind of socket listening to port2 on HE to communicate with HI:port1.  
+OK! That's it. Everthing of localhost:port2 on HE will point to HI:port1. I can't tell why here, it should be some kind of socket listening to port2 on HE to communicate with HI:port1.  
 
 Well, if HI is not our machine, but we do have a machine in the same LAN with HI, called HJ, just execute the same command on HJ(HJ must has ssh privilege on HE also accessible to HI:port1):  
 ``ssh -R port2:HI:port1 username@HE``   
