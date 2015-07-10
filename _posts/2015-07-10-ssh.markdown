@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Awesome ssh reverse tunnel"
-date:   2015-06-17 09:52:39
+date:   2015-07-10 09:52:39
 categories: jekyll update
 ---
 
@@ -20,6 +20,6 @@ Well, if HI is not our machine, but we do have a machine in the same LAN with HI
 However, this `ssh` command will terminate when we logout shell. -n -N -T options will change stdin to /dev/null, then use nohup to keep it alive. Details of the options please check `man ssh`.  
 
 Finally the command looks like:  
-``nohup ssh -n -N -T -R port2:HI:port1 username@HE``  
+``nohup ssh -n -N -T -R port2:HI:port1 username@HE&``  
 
 May this help.
