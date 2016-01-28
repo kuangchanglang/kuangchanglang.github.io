@@ -1,8 +1,0 @@
----
-layout: post
-title:  "又买了个域名"
-date:   2015-06-15 09:32:39
-categories: jekyll update
----
-
-只花了1块钱，拿来装点什么呢？
