@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "Awesome ssh reverse tunnel"
+date:   2015-07-10 09:52:39
+categories: jekyll update
+---
+
+SSH reverse tunnel works fine when extranet host needs to access intranet resrouces. We call extranet host HE, intranet host HI for convenience, and address of resources in HI should be http://HI:port1.   
+
+HE can not access to HI directly even it knows HI's ip, it is just an intranet ip, kind of 192.168.... So we can create socket to exchange information, but it is not that elegant.  
+
+Here we get ssh to help. Execute this command on HI(where HI must has ssh privilege on HE):  
+``ssh -R port2:HI:port1 username@HE``   
+
+OK! That's it. Everthing of localhost:port2 on HE will point to HI:port1. I can't tell why here, it should be some kind of socket listening to port2 on HE to communicate with HI:port1.  
+
+Well, if HI is not our machine, but we do have a machine in the same LAN with HI, called HJ, just execute the same command on HJ(HJ must has ssh privilege on HE also accessible to HI:port1):  
+``ssh -R port2:HI:port1 username@HE``   
+
+However, this `ssh` command will terminate when we logout shell. -n -N -T options will change stdin to /dev/null, then use nohup to keep it alive. Details of the options please check `man ssh`.  
+
+Finally the command looks like:  
+``nohup ssh -n -N -T -R port2:HI:port1 username@HE&``  
+
+May this help.

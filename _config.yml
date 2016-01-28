@@ -1,12 +1,61 @@
-# Site settings
-title: Backing's blog 
-email: kuangchanglang@163.com
-description: > # this means to ignore newlines until "baseurl:"
-  Somtimes I feel lost, I need to find a way out.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://kuangchanglang.github.io" # the base hostname & protocol for your site
-twitter_username: noname 
-github_username: kuangchanglang 
-
 # Build settings
-markdown: kramdown
+permalink   : /blog/:year/:title/
+markdown    : kramdown
+highlighter : pygments
+
+kramdown:
+    auto_ids: true
+    footnote_nr: 1
+    entity_output: as_char
+    toc_levels: 1..6
+    smart_quotes: lsquo,rsquo,ldquo,rdquo
+    input: GFM
+
+paginate: 5
+paginate_path: "/blog/page/:num/"
+comments: true
+
+source: source
+destination: _site
+sass:
+  sass_dir: _scss
+  style: compressed # expanded
+
+# SEO settings
+title: backing 
+description: "backing's home"
+keywords: "blog, python, golang, backend, docker, web"
+url: http://kuangchanglang.com
+baseurl: ""
+# baseurl: ""
+
+# google_analytics: UA-52446115-1
+repo: http://github.com/kuangchanglang/
+disqus_shortname: "kuangchanglang"
+disqus_site_shortname: "kuangchanglang"
+
+# Author settings
+author:
+  name      : Changlang Kuang 
+  job       : Backend Programmer 
+  bio       : "Be more effective on things you have to do, that earns you time to enjoy anything you love."
+  thumb     : /images/author.jpg
+  email     : kuangchanglang@163.com
+  url       : http://kuangchanglang.com
+  github    : http://github.com/kuangchanglang
+  weibo     : http://weibo.com/backinglang
+  facebook  : https://www.facebook.com/profile.php?id=100010619612909
+  linkedin  : https://www.linkedin.com/in/changlang-kuang-7955b055
+
+# navbar pages
+navbar:
+  # - slug: resume
+  #   title: Resume
+  # - slug: skills
+  #   title: Skills
+  - slug: blog
+    title: Blog
+  - slug: about
+    title: About
+
+exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
