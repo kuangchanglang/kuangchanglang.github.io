@@ -4,23 +4,37 @@ title: About me
 permalink: /about/
 ---
 
-## Education
+
+### Professional Experience
+---------------------  
+-   2015.4-present   Netease Game, backend developer
+
+<br>
+
+### Education
+---------------------  
+-   2012.9-2015.3   Zhejiang University, Master of Computer science  
+-   2008.9-2012.6   Zhejiang University, Bachelor of Computer science   
+   
+<br>
+   
+### Skills 
+---------------------  
+-   Platform: linux
+-   Language/Programming: python, golang, java, js/css
+-   Database: mysql, redis
+-   Tools: git, vim
+<br>
+
+### Current Interest
+---------------------
+-   Docker, notejs
+-   High performance webservice   
+-   Image processing 
 
 
-## Skills
-1.  hehe
-2.  aaa
+<br>
 
-## Future 
-* aaa   
-* bbb   
-
-```python
-    print 'hahha'
-```
-
-~~~
-def what?
-  42
-  end
-~~~
+### Future
+---------------------
+-   Keep a dog/cat
