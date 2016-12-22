@@ -21,14 +21,18 @@ permalink: /about/
 ### Skills 
 ---------------------  
 -   Platform: linux
--   Language/Programming: python, golang, java, js/css
+-   Language/Programming: golang, python, java, js/css
 -   Database: mysql, redis
--   Tools: git, vim
+-   Tools: git, vim, docker
+
 <br>
+
+### Open source
+
 
 ### Current Interest
 ---------------------
--   Docker, notejs
+-   notejs
 -   High performance webservice   
 -   Image processing 
 
