@@ -47,12 +47,14 @@ python调用shell的方法也是有点多：
   
 system()和call()不能得到shell的返回结果。poen()和getstatusouput()不知是单进程执行还是什么原因，调用上面的方法大概15s，也就是全文件扫描的时间。  
 最后在官方文档找到的方法是用Popen()，可以获取结果，并且可以通过管道达到并行的效果：
-<pre><code>
+
+```python
+
  proc1 = subprocess.Popen(['tac', filename], stdout=subprocess.PIPE, preexec_fn = lambda: signal(SIGPIPE, SIG_DFL))
  proc2 = subprocess.Popen(['grep', '-m', '1', "url.*sauth.*%s" % channel], stdin=proc1.stdout, stdout=subprocess.PIPE)
                            proc1.stdout.close() # allow p1 to receive a SIGPIPE if p2 exists.
  content, err = proc2.communicate()
-</code></pre>
+```
 
 一开始没有加preexec_fn = lambda: signal(SIGPIPE, SIG_DFL)这个参数，后果就是grep是可以很快拿到结果，但是tac还没有结束，仍在坚持往前读文件。等他执行完了会报一个tac: write error。因为grep进程已经结束了，管道已经关了。  
 `` proc1.stdout.close() # allow p1 to receive a SIGPIPE if p2 exists. ``  
