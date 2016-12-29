@@ -2,7 +2,7 @@
 layout: post
 title:  "7月10号"
 date:   2015-07-10 12:37:39
-categories: jekyll update
+categories: life
 ---
 
 今天起床收到三条生日祝福短信，都是有头有脸的大佬。跟某朋友炫耀，她说毛线。我是会骗人的人么。中国移动，招商银行，还有浙江省血液中心。后来又来了个国富基金神马的。  

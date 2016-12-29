@@ -2,7 +2,8 @@
 layout: post
 title:  "Awesome ssh reverse tunnel"
 date:   2015-07-10 09:52:39
-categories: jekyll update
+categories: tools
+tags: ssh
 ---
 
 SSH reverse tunnel works fine when extranet host needs to access intranet resrouces. We call extranet host HE, intranet host HI for convenience, and address of resources in HI should be http://HI:port1.   
