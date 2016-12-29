@@ -30,7 +30,7 @@ defaults:
       layout: "post"
       
 #### Pagination
-paginate: 6
+paginate: 5
 
 #### Site
 title : Backing 
