@@ -113,10 +113,10 @@ toc:
 
 #### Links
 links:
-  码农圈: https://coderq.com
+  Hack news: https://news.ycombinator.com/
 
 #### Comment
-duoshuo_shortname:    ## e.g. wuchong   your duoshuo short name.
+duoshuo_shortname: kuangchanglang   ## e.g. wuchong   your duoshuo short name.
 disqus_shortname:     ## e.g. wuchong   your disqus short name.
 
 #### Share button
