@@ -1,0 +1,245 @@
+Upgrade mpcgi 2.9 to 3.0
+python coroutine
+15:04 11 Oct 2016
+Tags: mpcgi, coroutine, gevent 
+
+邝昌浪
+网易游戏计费组
+kcln1687@corp.netease.com
+
+* Outlines
+
+- Python web
+- Coroutine
+- Gevent
+- Gunicorn
+- Upgrade mpcgi 2.9 to 3.0
+
+* Python web--deployments
+
+- cgi
+    fork-and-execute
+- fastcgi, scgi
+    long-live process
+- mod_python
+    embed python interpreter into web server(apache only)
+- uwsgi
+    uWSGI server specified
+- wsgi 
+    limited to python
+
+* Python web--cgi
+.image cgi.png
+
+* Python web--fastcgi
+.image fastcgi.png
+
+* Python web--fastcgi advantages
+- get rid of fork overhead
+- binary protocol
+- deployed on any separated machines from web server(compared to cgi)
+
+* Python web--fastcgi server
+- flup
+    python web server support fastcgi
+
+.code fastcgi/server.py
+
+- spawn-fcgi
+    process manager
+
+* Python web--mod_python
+- embed python interpreter into web server 
+- processes managed by server
+.link http://www.onlamp.com/pub/a/python/2003/10/02/mod_python.html
+
+* Python web--uwsgi
+- high performance
+
+.link https://uwsgi-docs.readthedocs.io/en/latest/
+
+* Python web--wsgi
+- pep 333 (pep 3333 on python 3.x)
+- wsgi is an attempt to get rid of the low level gateways
+- simple and universal interface between web servers and web applications or frameworks
+.code wsgi/myapp.py
+
+* Python web--wsgi
+- server
+    - handle connections
+    - process(thread) management 
+    - ...
+
+    * gunicorn
+    * mod_wsgi
+    * flup
+    * ...
+- framework(app)
+    provides simple api for programmer, such as:
+    - url mapping
+    - template management
+    - session management
+    - ...
+
+    * webpy
+    * flask
+    * django
+    * ...
+
+* Python web--wsgi
+.image wsgi.png
+
+* Python web--wsgi benefits
+- easy to code
+- easy to migrate application from one server to another 
+- easy to add middleware
+- ...
+
+
+* Python web--summary
+- Process
+    can not make full use of multiple CPUs
+- Multi-threads
+    GIL
+- Multi-processes or Multi-threads
+    CPU and memory overhead
+- Processes pool or threads pool
+    better one
+
+
+Other choices?
+
+    coroutine
+
+* Coroutine--What is coroutine
+Coroutines are computer program components that generalize subroutines for nonpreemptive multitasking, by allowing multiple entry points for suspending and resuming execution at certain locations. 
+
+- user-defined threads
+- scheduled by user
+
+Programming languages with native support:
+
+    - go
+    - lua
+    - ruby
+    - javascript(since 1.7)
+    - python 3.5(explicit support)
+    - ...
+
+* Coroutine--coroutines vs threads
+- Threads:
+    - 8k stack memory on create(default)
+    - more context switch time(kernel space)
+    - lock on global access
+    + scheduled on multi-cpus
+    
+- Coroutines:
+    + lower memory cost
+    + less context switch time(user space)
+    + lock free
+    - single cpu only
+
+* Coroutine--context switch
+- Consider:
+    1. two jobs running on a single cpu
+    2. each takes 10 seconds cpu calculation.
+    3. cpu context switch each second, each takes 0.1 seconds
+    4. coroutine context switch takes 0.1 seconds(even less)
+
+- threads:
+    takes 10 + 0.1*20 + 10 = 22 seconds
+
+- coroutines:
+    takes 10 + 0.1 + 10 = 20.1 seconds
+
+* Coroutine--Python coroutine
+- python 2.5+
+    - keyword yield
+    - greenlet
+
+.code coroutine/fib.py
+
+- python 3.5+
+    explicit support
+
+* Coroutine--greenlet
+The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets".
+
+- Micro-threads with no implicit scheduling
+- Implemented in C(stack switch implemented in ASM)
+- Lightweight
+- Only one can run at a time
+- Cooperative
+
+* Coroutine--greenlet example
+- Organized in a tree structure
+    - every greenlet has a "parent" greenlet, except main
+    - when a greenlet dies, control is switched to its parent
+.code greenlet/example.py
+
+* Coroutine--greenlet stack switch 
+.code greenlet/stack_switch.c
+
+* Gevent
+gevent is a coroutine -based Python networking library that uses greenlet to provide a high-level synchronous API on top of the libev event loop.
+
+- Fast event loop based on libev (epoll on Linux, kqueue on FreeBSD).
+- Lightweight execution units based on greenlet.
+
+
+* Gevent--example
+.code gevent/example.py
+
+* Gevent--monkey patch
+- Gevent switch greenlets implicitly when:
+    - io
+    - sleep
+    - signal
+
+.code gevent/monkey_path.py
+
+
+* Gunicorn
+- Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX.
+- pre-fork worker model
+- compatible with various web frameworks
+- simply implemented, light on server resources, and fairly speedy
+
+* Upgrade mpcgi 2.9 to 3.0--architecture of 2.9
+- nginx
+- flup(fastcgi) + webpy
+.code nginx_conf/2.9
+
+* Upgrade mpcgi 2.9 to 3.0--new to 3.0
+- nginx
+- gunicorn(master+workers)
+- gevent + webpy
+.code nginx_conf/3.0
+
+* Upgrade mpcgi 2.9 to 3.0--codes changed
+- Do not use any blocking packages, such as Mysqldb
+    replace it with pymysql
+
+- Mysqldb
+    - implemented in C
+    - follow pep 249(Python Database API Specification v2.0)
+- pymysql
+    - implemented in python
+    - follow pep 249(Python Database API Specification v2.0)
+
+
+* Upgrade mpcgi 2.9 to 3.0--problem raise
+- logging same file in different processes
+    - use socket logging handler
+    - use file lock on write
+
+* Upgrade mpcgi 2.9 to 3.0--performance
+- flexible deployment via config(sync, gevent) 
+- better process management
+- graceful reload
+- lower system load
+
+* More--to be continue...
+- Python 3
+    -async
+    -await

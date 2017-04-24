@@ -1,0 +1,18 @@
+upstream h99mp {
+        server 127.0.0.0:19660 weight=1 fail_timeout=10 max_fails=1;
+        server 127.0.0.0:19661 weight=1 fail_timeout=10 max_fails=1;
+        server 127.0.0.0:19662 weight=1 fail_timeout=10 max_fails=1;
+        keepalive 16;
+}
+
+server {
+        ; ...
+        location ~ ^/(mp|mpapi)/  {
+            fastcgi_pass    h99mp;
+            #fastcgi_pass unix:/tmp/nginx_fpy.sock;
+            fastcgi_index  index.py;
+            #fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+}
+
