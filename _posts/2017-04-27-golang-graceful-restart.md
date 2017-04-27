@@ -5,7 +5,6 @@ date: 2017-4-27 14:58:37
 categories: golang 
 ---
 
-# 热重启 
 服务端代码经常需要升级，对于线上系统的升级常用的做法是，通过前端的负载均衡（如nginx）来保证升级时至少有一个服务可用，依次（灰度）升级。  
 而另一种更方便的方法是在应用上做热重启，直接升级应用而不停服务。  
 
@@ -21,6 +20,8 @@ categories: golang
 # 细节
 * 父进程将socket文件描述符传递给子进程可以通过命令行，或者环境变量等
 * 子进程启动时使用和父进程一样的命令行，对于golang来说用更新的可执行程序覆盖旧程序 
+* server.Shutdown()优雅关闭方法是go1.8的新特性
+* server.Serve(l)方法在Shutdown时立即返回，Shutdown方法则阻塞至context完成，所以Shutdown的方法要写在主goroutine中
 
 # 代码
 ``` golang
@@ -137,5 +138,5 @@ func signalHandler() {
 
 
 # references
-[Graceful Restart in Golang](https://grisha.org/blog/2014/06/03/graceful-restart-in-golang/)
-[facebookgo/grace](https://github.com/facebookgo/grace)
+- [Graceful Restart in Golang](https://grisha.org/blog/2014/06/03/graceful-restart-in-golang/)  
+- [facebookgo/grace](https://github.com/facebookgo/grace)
