@@ -136,7 +136,15 @@ func signalHandler() {
 
 ```
 
+# systemd & supervisor
+父进程退出之后，子进程会挂到1号进程上面。这种情况下使用systemd和supervisord等管理程序会显示进程处于failed的状态。解决这个问题有两个方法：
+- 使用pidfile，每次进程重启更新一下pidfile，让进程管理者通过这个文件感知到mainpid的变更。
+- 起一个master来管理服务进程，每次热重启master拉起一个新的进程，把旧的kill掉。这时master的pid没有变化，对于进程管理者来说进程处于正常的状态。[一个简洁的实现](https://github.com/kuangchanglang/graceful)
 
-# references
+
+# References
+- [graceful](https://github.com/kuangchanglang/graceful)
 - [Graceful Restart in Golang](https://grisha.org/blog/2014/06/03/graceful-restart-in-golang/)  
 - [facebookgo/grace](https://github.com/facebookgo/grace)
+- [endless](https://github.com/fvbock/endless)
+- [overseer](https://github.com/jpillora/overseer)
