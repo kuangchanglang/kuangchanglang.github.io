@@ -7,7 +7,8 @@ permalink: /about/
 
 ### Professional Experience
 ---------------------  
--   2015.4-present   Netease Game, backend developer
+-   2017.5-present  Bytedance Inc, video-arch, backend developer
+-   2015.4-2017.4   Netease Game, backend developer
 
 <br>
 
@@ -28,9 +29,10 @@ permalink: /about/
 <br>
 
 ### Open source contribution
-- [gorilla/schema](!https://github.com/kuangchanglang/schema)
-- [fatih/structs](!https://github.com/kuangchanglang/structs)
-- [kuangchanglang/goshell](!https://github.com/kuangchanglang/goshell)
+- [kuangchanglang/graceful](https://github.com/kuangchanglang/graceful)
+- [gorilla/schema](https://github.com/kuangchanglang/schema)
+- [fatih/structs](https://github.com/kuangchanglang/structs)
+- [kuangchanglang/goshell](https://github.com/kuangchanglang/goshell)
 
 <br/>
 
